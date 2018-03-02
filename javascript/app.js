@@ -11,4 +11,13 @@ var config = {
 
 firebase.initializeApp(config);
 
+	// starting variables
+	var database = firebase.database();
+	var trainName = "";
+	var destination = "";
+	var firstTrain = 0;
+	var frequency = 0;
+
+	// 
+
 });
