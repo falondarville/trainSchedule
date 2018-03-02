@@ -11,13 +11,46 @@ var config = {
 
 firebase.initializeApp(config);
 
-	// starting variables
-	var database = firebase.database();
-	var trainName = "";
-	var destination = "";
-	var firstTrain = 0;
-	var frequency = 0;
+// starting variables
+var database = firebase.database();
+var trainName = "";
+var destination = "";
+var firstTrain = 0;
+var frequency = 0;
+var nextArrival = 0;
+var minutesAway = 0;
 
-	// 
+// on button click event
+$("#submitButton").on("click", function(){
+
+	event.preventDefault();
+
+	$("#trainName").empty();
+	$("#destination").empty();
+	$("#firstTrain").empty();
+	$("#frequency").empty();
+
+	trainName = $("#trainName").val().trim();
+	destination = $("#destination").val().trim();
+	firstTrain = $("#firstTrain").val().trim();
+	frequency = $("#frequency").val().trim();
+
+	// push information to Firebase
+    database.ref().push({
+    	trainName: trainName,
+        destination: destination,
+        firstTrain: firstTrain,
+        frequency: frequency
+
+    });
+
+    var newLine = $("<tr></tr>"); 
+
+	newLine.append('<td>' + trainName + '</td>');
+	newLine.append('<td>' + destination + '</td>');
+	newLine.append('<td>' + firstTrain + '</td>');
+
+	$("#tbody").append(newLine);
+});
 
 });
