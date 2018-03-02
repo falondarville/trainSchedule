@@ -1,0 +1,18 @@
+.jumbotron {
+	background-image: url("../images/train.png");
+}
+
+#titleStyle {
+	background-color: white;
+	text-align: center;
+}
+
+.container {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.card-header {
+	background-color: #FFB732;
+	font-weight: bold;
+}

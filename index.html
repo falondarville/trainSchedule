@@ -2,11 +2,66 @@
 <html>
 <head>
 	<title>Train Schedule</title>
+	<!-- Links to Bootstrap and CSS file -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<!-- Jumbotron -->
+	<div class="jumbotron">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div id="titleStyle">
+					<h1>Train Schedule</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Current Train Schedule -->
+	<div class="container">
+		<div class="card">
+	  		<div class="card-header">
+	    		Current Train Schedule
+	  		</div>
+	  			<div class="card-body">
+	    		<!-- This is where train information dynamically populates -->
+	  		</div>
+		</div>
+	</div>
+
+<!-- Add Train -->
+	<div class="container">
+		<div class="card">
+	  		<div class="card-header">
+	    		Add Train
+	  		</div>
+	  			<div class="card-body">
+	  				<div class="form">
+	  					<div class="form-group">
+	  						<label for="trainName">Train Name</label>
+	  						<input type="text" class="form-control" id="trainName">
+	  					</div>
+	  					<div class="form-group">
+	  						<label for="destination">Destination</label>
+	  						<input type="text" class="form-control" id="destination">
+	  					</div>
+	  					<div class="form-group">
+	  						<label for="firstTrain">First Train Time (HH:mm Military Time)</label>
+	  						<input type="text" class="form-control" id="firstTrain">
+	  					</div>
+	  					<div class="form-group">
+	  						<label for="frequency">Frequency in Minutes</label>
+	  						<input type="text" class="form-control" id="frequency">
+	  					</div>
+	  					<button type="button" class="btn btn-secondary">Submit</button>
+	  				</div>
+	  		</div>
+		</div>
+	</div>
 
 	<!-- When adding trains, administrators should be able to submit the following:
 			Train Name
@@ -16,7 +71,7 @@
 			Code this app to calculate when the next train will arrive; this should be relative to the current time.
 			Users from many different machines must be able to view same train times. -->
 
-
+<!-- Links to Firebase, JQuery, and JavaScript -->
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="javascript/app.js"></script>
