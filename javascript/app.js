@@ -35,13 +35,14 @@ $("#submitButton").on("click", function(){
 	firstTrain = $("#firstTrain").val().trim();
 	frequency = $("#frequency").val().trim();
 
+	// calculate nextArrival and minutesAway
+
 	// push information to Firebase
     database.ref().push({
     	trainName: trainName,
         destination: destination,
         firstTrain: firstTrain,
         frequency: frequency
-
     });
 
     var newLine = $("<tr></tr>"); 
@@ -49,6 +50,8 @@ $("#submitButton").on("click", function(){
 	newLine.append('<td>' + trainName + '</td>');
 	newLine.append('<td>' + destination + '</td>');
 	newLine.append('<td>' + firstTrain + '</td>');
+	//append calculated next arrival time
+	//append calculated minutes away
 
 	$("#tbody").append(newLine);
 });
