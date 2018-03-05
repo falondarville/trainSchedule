@@ -20,24 +20,25 @@ var frequency = 0;
 var nextArrival = 0;
 var minutesAway = 0;
 
+var now = moment();
+console.log(now);
+
 // on button click event
 $("#submitButton").on("click", function(){
 
 	event.preventDefault();
 
+	//empty form
 	$("#trainName").empty();
 	$("#destination").empty();
 	$("#firstTrain").empty();
 	$("#frequency").empty();
 
+	//assign inputted user information to variables
 	trainName = $("#trainName").val().trim();
 	destination = $("#destination").val().trim();
-	firstTrain = $("#firstTrain").val().trim();
+	firstTrain = moment($("#firstTrain").val().trim(), "HH:mm").format("X");
 	frequency = $("#frequency").val().trim();
-
-	// calculate nextArrival and minutesAway
-	var nextArrival = moment([//take the firstTrain time
-		]);
 
 	// push information to Firebase
     database.ref().push({
@@ -47,11 +48,12 @@ $("#submitButton").on("click", function(){
         frequency: frequency
     });
 
+    //append information to page
     var newLine = $("<tr></tr>"); 
 
 	newLine.append('<td>' + trainName + '</td>');
 	newLine.append('<td>' + destination + '</td>');
-	newLine.append('<td>' + firstTrain + '</td>');
+	newLine.append('<td>' + frequency + '</td>');
 	//append calculated next arrival time
 	//append calculated minutes away
 
@@ -70,7 +72,7 @@ database.ref().on("child_added", function(snapshot) {
 
 	newLine.append('<td>' + snapshot.val().trainName + '</td>');
 	newLine.append('<td>' + snapshot.val().destination + '</td>');
-	newLine.append('<td>' + snapshot.val().firstTrain + '</td>');
+	newLine.append('<td>' + snapshot.val().frequency + '</td>');
 
 	$("#tbody").append(newLine);
 });
