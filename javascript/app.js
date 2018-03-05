@@ -36,6 +36,8 @@ $("#submitButton").on("click", function(){
 	frequency = $("#frequency").val().trim();
 
 	// calculate nextArrival and minutesAway
+	var nextArrival = moment([//take the firstTrain time
+		]);
 
 	// push information to Firebase
     database.ref().push({
@@ -55,5 +57,7 @@ $("#submitButton").on("click", function(){
 
 	$("#tbody").append(newLine);
 });
+
+//produce persistence
 
 });
