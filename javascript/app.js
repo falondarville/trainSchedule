@@ -58,6 +58,21 @@ $("#submitButton").on("click", function(){
 	$("#tbody").append(newLine);
 });
 
-//produce persistence
+//produce persistence across sessions
+database.ref().on("child_added", function(snapshot) {
+
+	$("#trainName").text(snapshot.val().trainName);
+	$("#destination").text(snapshot.val().destination);
+	$("#firstTrain").text(snapshot.val().firstTrain);
+	$("#frequency").text(snapshot.val().frequency);
+
+	var newLine = $("<tr></tr>"); 
+
+	newLine.append('<td>' + snapshot.val().trainName + '</td>');
+	newLine.append('<td>' + snapshot.val().destination + '</td>');
+	newLine.append('<td>' + snapshot.val().firstTrain + '</td>');
+
+	$("#tbody").append(newLine);
+});
 
 });
