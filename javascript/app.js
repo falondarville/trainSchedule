@@ -55,18 +55,16 @@ $("#submitButton").on("click", function(){
 });
 
 //create function to update time every one second
-//this is not working
-function updateTime() {
+//how do I update the HTMl?
+setInterval(function() {
 
-	//calculate train next arrival time and minutes until
-	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
-	var difference = moment().diff(moment(timeConverted), "minutes");
-	var timeRemainder = difference % frequency;
-	var timeUntil = frequency - timeRemainder;
-	var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
-}
-
-setInterval(updateTime, 1000);
+	//recalculate variables every one second
+	timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+	difference = moment().diff(moment(timeConverted), "minutes");
+	timeRemainder = difference % frequency;
+	timeUntil = frequency - timeRemainder;
+	nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
+}, 1000);
 
 //produce persistence
 database.ref().on("child_added", function(snapshot) {
