@@ -56,15 +56,15 @@ $("#submitButton").on("click", function(){
     });
 
     //append information to page
-    var newLine = $("<tr></tr>"); 
+ //    var newLine = $("<tr></tr>"); 
 
-	newLine.append('<td>' + trainName + '</td>');
-	newLine.append('<td>' + destination + '</td>');
-	newLine.append('<td>' + frequency + '</td>');
-	newLine.append('<td>' + nextTrain + '</td>');
-	newLine.append('<td>' + timeUntil + '</td>');
+	// newLine.append('<td>' + trainName + '</td>');
+	// newLine.append('<td>' + destination + '</td>');
+	// newLine.append('<td>' + frequency + '</td>');
+	// newLine.append('<td>' + nextTrain + '</td>');
+	// newLine.append('<td>' + timeUntil + '</td>');
 
-	$("#tbody").append(newLine);
+	// $("#tbody").append(newLine);
 });
 
 //produce persistence
@@ -72,10 +72,10 @@ database.ref().on("child_added", function(snapshot) {
 
 	//grab a snapshot of the items stored on Firebase
 	//why does this work? I am grabbing the data by ID and not by the name of the key on Firebase
-	$("#trainName").text(snapshot.val().trainName);
-	$("#destination").text(snapshot.val().destination);
-	$("#firstTrain").text(snapshot.val().firstTrain);
-	$("#frequency").text(snapshot.val().frequency);
+	// $("#trainName").text(snapshot.val().trainName);
+	// $("#destination").text(snapshot.val().destination);
+	// $("#firstTrain").text(snapshot.val().firstTrain);
+	// $("#frequency").text(snapshot.val().frequency);
 
 	//append values that live on Firebase
 	var newLine = $("<tr></tr>"); 
