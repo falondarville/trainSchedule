@@ -20,22 +20,26 @@ var frequency = 0;
 var nextTrain = 0;
 var timeUntil = 0;
 
-// on button click event
+// on button click event that grabs inputted information and calculates initial nextTrain and timeUntil values
 $("#submitButton").on("click", function(){
 
-	event.preventDefault();
-
 	//empty form
-	$("#trainName").empty();
-	$("#destination").empty();
-	$("#firstTrain").empty();
-	$("#frequency").empty();
+	$("#trainName").val("");
+	$("#destination").val("");
+	$("#firstTrain").val("");
+	$("#frequency").val("");
 
 	//assign inputted user information to variables
 	trainName = $("#trainName").val().trim();
 	destination = $("#destination").val().trim();
 	firstTrain = $("#firstTrain").val().trim();
 	frequency = $("#frequency").val().trim();
+
+	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+	var difference = moment().diff(moment(timeConverted), "minutes");
+	var timeRemainder = difference % frequency;
+	var timeUntil = frequency - timeRemainder;
+	var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
 	
 	// push information to Firebase
     database.ref().push({
@@ -43,39 +47,29 @@ $("#submitButton").on("click", function(){
         destination: destination,
         firstTrain: firstTrain,
         frequency: frequency,
-        timeUntil: timeUntil,
+       	timeUntil: timeUntil,
         nextTrain: nextTrain
     });
 
-    //append information to page
- //    var newLine = $("<tr></tr>"); 
-
-	// newLine.append('<td>' + trainName + '</td>');
-	// newLine.append('<td>' + destination + '</td>');
-	// newLine.append('<td>' + frequency + '</td>');
-	// newLine.append('<td>' + nextTrain + '</td>');
-	// newLine.append('<td>' + timeUntil + '</td>');
-
-	// $("#tbody").append(newLine);
+	event.preventDefault();
 });
 
-//calculate train next arrival time and minutes until
-//this works the first time but does not update
-var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
-var difference = moment().diff(moment(timeConverted), "minutes");
-var timeRemainder = difference % frequency;
-var timeUntil = frequency - timeRemainder;
-var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
+//create function to update time every one second
+//this is not working
+function updateTime() {
+
+	//calculate train next arrival time and minutes until
+	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+	var difference = moment().diff(moment(timeConverted), "minutes");
+	var timeRemainder = difference % frequency;
+	var timeUntil = frequency - timeRemainder;
+	var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
+}
+
+setInterval(updateTime, 1000);
 
 //produce persistence
 database.ref().on("child_added", function(snapshot) {
-
-	//grab a snapshot of the items stored on Firebase
-	//why does this work? I am grabbing the data by ID and not by the name of the key on Firebase
-	// $("#trainName").text(snapshot.val().trainName);
-	// $("#destination").text(snapshot.val().destination);
-	// $("#firstTrain").text(snapshot.val().firstTrain);
-	// $("#frequency").text(snapshot.val().frequency);
 
 	//append values that live on Firebase
 	var newLine = $("<tr></tr>"); 
