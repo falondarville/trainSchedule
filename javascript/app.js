@@ -17,8 +17,8 @@ var trainName = "";
 var destination = "";
 var firstTrain = 0;
 var frequency = 0;
-var nextArrival = 0;
-var minutesAway = 0;
+var nextTrain = 0;
+var timeUntil = 0;
 
 // on button click event
 $("#submitButton").on("click", function(){
@@ -49,7 +49,9 @@ $("#submitButton").on("click", function(){
     	trainName: trainName,
         destination: destination,
         firstTrain: firstTrain,
-        frequency: frequency
+        frequency: frequency,
+        timeUntil: timeUntil,
+        nextTrain: nextTrain
     });
 
     //append information to page
@@ -62,22 +64,25 @@ $("#submitButton").on("click", function(){
 	newLine.append('<td>' + timeUntil + '</td>');
 
 	$("#tbody").append(newLine);
-	return frequency;
 });
 
 //produce persistence
 database.ref().on("child_added", function(snapshot) {
 
+	//grab a snapshot of the items stored on Firebase
 	$("#trainName").text(snapshot.val().trainName);
 	$("#destination").text(snapshot.val().destination);
 	$("#firstTrain").text(snapshot.val().firstTrain);
 	$("#frequency").text(snapshot.val().frequency);
 
+	//append values that live on Firebase
 	var newLine = $("<tr></tr>"); 
 
 	newLine.append('<td>' + snapshot.val().trainName + '</td>');
 	newLine.append('<td>' + snapshot.val().destination + '</td>');
 	newLine.append('<td>' + snapshot.val().frequency + '</td>');
+	newLine.append('<td>' + snapshot.val().nextTrain + '</td>');
+	newLine.append('<td>' + snapshot.val().timeUntil + '</td>');
 
 	$("#tbody").append(newLine);
 });
