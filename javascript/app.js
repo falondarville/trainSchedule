@@ -38,6 +38,7 @@ $("#submitButton").on("click", function(){
 	frequency = $("#frequency").val().trim();
 
 	//calculate train next arrival time and minutes until
+	//this works the first time but does not update
 	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
 	var difference = moment().diff(moment(timeConverted), "minutes");
 	var timeRemainder = difference % frequency;
@@ -70,6 +71,7 @@ $("#submitButton").on("click", function(){
 database.ref().on("child_added", function(snapshot) {
 
 	//grab a snapshot of the items stored on Firebase
+	//why does this work? I am grabbing the data by ID and not by the name of the key on Firebase
 	$("#trainName").text(snapshot.val().trainName);
 	$("#destination").text(snapshot.val().destination);
 	$("#firstTrain").text(snapshot.val().firstTrain);
