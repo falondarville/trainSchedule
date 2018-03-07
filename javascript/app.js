@@ -20,28 +20,23 @@ var frequency = 0;
 var nextTrain = 0;
 var timeUntil = 0;
 
-// on button click event that grabs inputted information and calculates initial nextTrain and timeUntil values
+// on button click event
 $("#submitButton").on("click", function(){
 
 	event.preventDefault();
-
-	//empty form
-	$("#trainName").val("");
-	$("#destination").val("");
-	$("#firstTrain").val("");
-	$("#frequency").val("");
-
-	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
-	var difference = moment().diff(moment(timeConverted), "minutes");
-	var timeRemainder = difference % frequency;
-	var timeUntil = frequency - timeRemainder;
-	var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
 
 	//assign inputted user information to variables
 	trainName = $("#trainName").val().trim();
 	destination = $("#destination").val().trim();
 	firstTrain = $("#firstTrain").val().trim();
 	frequency = $("#frequency").val().trim();
+
+	//calculate train next arrival time and minutes until
+	var timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
+	var difference = moment().diff(moment(timeConverted), "minutes");
+	var timeRemainder = difference % frequency;
+	var timeUntil = frequency - timeRemainder;
+	var nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
 	
 	// push information to Firebase
     database.ref().push({
@@ -49,25 +44,16 @@ $("#submitButton").on("click", function(){
         destination: destination,
         firstTrain: firstTrain,
         frequency: frequency,
-        nextTrain: nextTrain,
-        timeUntil: timeUntil
+        timeUntil: timeUntil,
+        nextTrain: nextTrain
     });
 
+	//empty form
+	$("#trainName").val("");
+	$("#destination").val("");
+	$("#firstTrain").val("");
+	$("#frequency").val("");
 });
-
-// //create function to update time every one second
-// //how do I update the HTMl?
-// setInterval(function() {
-
-// 	//recalculate variables every one second
-// 	timeConverted = moment(firstTrain, "HH:mm").subtract(1, "years");
-// 	difference = moment().diff(moment(timeConverted), "minutes");
-// 	timeRemainder = difference % frequency;
-// 	timeUntil = frequency - timeRemainder;
-// 	nextTrain = moment().add(timeUntil, "minutes").format("HH:mm");
-// 	console.log("NEXT TRAIN = " + nextTrain);
-// 	console.log("TIME UNTIL = " + timeUntil);
-// }, 1000);
 
 //produce persistence
 database.ref().on("child_added", function(snapshot) {
